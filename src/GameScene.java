@@ -8,6 +8,6 @@ public class GameScene extends Scene {
     public GameScene(Pane pane, double v, double v1, boolean b, Camera gameCam) {
         super(pane, v, v1, b);
         this.gameCam = gameCam;
-        test
+
     }
 }
