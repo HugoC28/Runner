@@ -26,7 +26,6 @@ public class Main extends Application {
                 sprite.setY(300);
                 primaryStage.setScene(theScene);
                 root.getChildren().add(sprite);
-                        test
                 primaryStage.show();
         }
 
