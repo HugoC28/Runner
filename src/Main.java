@@ -17,15 +17,14 @@ public class Main extends Application {
 
                 Camera gameCam = new Camera(100,0);
 
-                GameScene theScene = new GameScene(pane, 600, 400,true,gameCam);
-
-                Image spriteSheet = new Image("file:src/img/heros.png");
+                GameScene playScene = new GameScene(pane, root, 800, 400,true,gameCam);
+                /*Image spriteSheet = new Image("file:src/img/heros.png");
                 ImageView sprite = new ImageView(spriteSheet);
                 sprite.setViewport(new Rectangle2D(20,0,65,100));
                 sprite.setX(200);
                 sprite.setY(300);
-                primaryStage.setScene(theScene);
-                root.getChildren().add(sprite);
+                root.getChildren().add(sprite);*/
+                primaryStage.setScene(playScene);
                 primaryStage.show();
         }
 
