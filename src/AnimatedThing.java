@@ -1,32 +1,36 @@
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 
 abstract class AnimatedThing {
 
     protected double x;
     protected double y;
-    private ImageView imageView;
-    private int attitude=0; //valeur de offset Y
-    private int index=0;
-    private int duration;
-    private int indexMax;
-    private int sizeX;
-    private int sizeY;
-    private int offset;
+    protected ImageView imageView;
+    protected int attitude=0; //valeur de offset Y
+    protected int index=0;
+    protected int duration;
+    protected int indexMax;
+    protected int sizeX;
+    protected int sizeY;
+    protected int offset;
     protected double gravity;
     protected int limitY;
+    protected Pane pane;
 
     public ImageView getImageView() {
         return imageView;
     }
 
-    public AnimatedThing(String fileName, int indexMax, int duration, int sizeX, int sizeY, int offset) {
+    public AnimatedThing(String fileName, int indexMax, int duration, int sizeX, int sizeY, int offset, Pane pane) {
         this.imageView=new ImageView(fileName);
         this.indexMax=indexMax;
         this.duration=duration;
         this.offset=offset;
         this.sizeX=sizeX;
         this.sizeY=sizeY;
+        this.pane=pane;
+        pane.getChildren().add(this.imageView);
 
 
     }
@@ -34,7 +38,6 @@ abstract class AnimatedThing {
     public void update(long time){
             imageView.setViewport(new Rectangle2D(index*(offset+sizeX),attitude,sizeX,sizeY));
             setY(y+gravity);
-            System.out.println(y);
             if(y>=limitY){
                 setY(limitY);
             }
@@ -86,6 +89,10 @@ abstract class AnimatedThing {
 
     public int getSizeY() {
         return sizeY;
+    }
+
+    public Pane getPane() {
+        return pane;
     }
 
     public int getOffset() {

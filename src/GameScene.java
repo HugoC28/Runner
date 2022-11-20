@@ -6,6 +6,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 
 public class GameScene extends Scene {
+    public static int jump=159;
+    public static int shoot=328;
     private Camera gameCam ;
     private StaticThing leftBackground;
     private StaticThing rightBackground;
@@ -28,9 +30,7 @@ public class GameScene extends Scene {
         pane.getChildren().add(rightBackground.getImageView());
         leftBackground.getImageView().setX(-300);
         rightBackground.getImageView().setX(leftBackground.getImageView().getX()+800);
-        this.me = new Hero(5,9,80,100,5);
-        pane.getChildren().add(me.getImageView());
-        //timer.start();
+        this.me = new Hero(5,9,80,100,5,pane);
 
     }
     public void update(long time){
@@ -58,9 +58,13 @@ public class GameScene extends Scene {
                 gameCam.update(time);
                 update(time);
                 setOnKeyPressed(e ->{
-                    if (e.getCode()== KeyCode.SPACE && me.getAttitude()!=159){
+                    if (e.getCode()== KeyCode.SPACE && me.getAttitude()!=jump){
                         System.out.println("JUMP");
                         me.Jump();
+                    }
+                    if (e.getCode()== KeyCode.ENTER && me.getAttitude()!=shoot){
+                        System.out.println("PEW");
+                        me.Shoot();
                     }
                 });
 

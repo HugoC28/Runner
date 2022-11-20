@@ -1,8 +1,12 @@
 import javafx.geometry.Rectangle2D;
+import javafx.scene.layout.Pane;
+
+import java.util.ArrayList;
 
 public class Hero extends AnimatedThing{
-    public Hero(int indexMax, int duration, int sizeX, int sizeY, int offset) {
-        super("file:src/img/heros.png", indexMax, duration, sizeX, sizeY, offset);
+    private ArrayList<Bullet> bulletList = new ArrayList<Bullet>();
+    public Hero(int indexMax, int duration, int sizeX, int sizeY, int offset, Pane pane) {
+        super("file:src/img/heros.png", indexMax, duration, sizeX, sizeY, offset,pane);
         this.x=50;
         this.y=250;
         this.getImageView().setViewport(new Rectangle2D(this.getIndex()*this.getSizeX(),this.getAttitude(),this.getSizeX(),this.getSizeY()));
@@ -14,7 +18,23 @@ public class Hero extends AnimatedThing{
     }
 
     public void Jump(){
-        setAttitude(159, 2);
+        setAttitude(GameScene.jump, 2);
         setY(getY()-50);
+    }
+    public void Shoot(){
+        setAttitude(GameScene.shoot, 5);
+        Bullet pew = new Bullet(this.pane,this);
+        bulletList.add(pew);
+    }
+
+    @Override
+    public void update(long time) {
+        super.update(time);
+        for(Bullet bullet : bulletList){
+            bullet.update(time);
+            if(bullet.getX()>800){
+                bullet=null;
+            }
+        }
     }
 }
