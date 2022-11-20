@@ -1,0 +1,28 @@
+import javafx.geometry.Rectangle2D;
+import javafx.scene.layout.Pane;
+
+import java.util.Random;
+
+public class Enemy extends AnimatedThing{
+    private int min=100;
+    private int max=250;
+    public Enemy (Pane pane){
+        super("file:src/img/enemy.png",3,7,150,104,0,pane);
+        this.x=800;
+        Random r = new Random();
+        this.y=r.nextInt((max-min)+1)+min;
+        this.getImageView().setViewport(new Rectangle2D(0,0,this.getSizeX(),this.getSizeY()));
+        this.getImageView().setX(x);
+        this.getImageView().setY(y);
+        this.gravity=0;
+        this.limitY=250;
+
+    }
+
+    @Override
+    public void update(long time){
+        super.update(time);
+        x-=15;
+        this.imageView.setX(x);
+    }
+}

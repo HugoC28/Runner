@@ -15,10 +15,7 @@ public class Main extends Application {
                 primaryStage.setTitle("Runner");
                 Group root = new Group();
                 Pane pane = new Pane(root);
-
-                Camera gameCam = new Camera(100,0);
-
-                GameScene playScene = new GameScene(pane, 800, 400,true,gameCam);
+                GameScene playScene = new GameScene(pane, 800, 400,true);
                 primaryStage.setScene(playScene);
                 primaryStage.show();
                 playScene.StartGame();
