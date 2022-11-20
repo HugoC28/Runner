@@ -2,6 +2,7 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 
 public class GameScene extends Scene {
@@ -43,5 +44,31 @@ public class GameScene extends Scene {
 
     public Hero getMe() {
         return me;
+    }
+
+    public void StartGame(){
+        AnimationTimer timer = new AnimationTimer() {
+            int count =0;
+            @Override
+            public void handle(long time) {
+                if (count == me.getDuration()) {
+                    me.update(time);
+                    count = 0;
+                }
+                gameCam.update(time);
+                update(time);
+                setOnKeyPressed(e ->{
+                    if (e.getCode()== KeyCode.SPACE && me.getAttitude()!=159){
+                        System.out.println("JUMP");
+                        me.Jump();
+                    }
+                });
+
+
+
+                count++;
+            }
+        };
+        timer.start();
     }
 }

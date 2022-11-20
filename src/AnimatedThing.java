@@ -3,8 +3,8 @@ import javafx.scene.image.ImageView;
 
 abstract class AnimatedThing {
 
-    private double x=50;
-    private double y=250;
+    protected double x;
+    protected double y;
     private ImageView imageView;
     private int attitude=0; //valeur de offset Y
     private int index=0;
@@ -13,6 +13,8 @@ abstract class AnimatedThing {
     private int sizeX;
     private int sizeY;
     private int offset;
+    protected double gravity;
+    protected int limitY;
 
     public ImageView getImageView() {
         return imageView;
@@ -31,9 +33,18 @@ abstract class AnimatedThing {
 
     public void update(long time){
             imageView.setViewport(new Rectangle2D(index*(offset+sizeX),attitude,sizeX,sizeY));
+            setY(y+gravity);
+            System.out.println(y);
+            if(y>=limitY){
+                setY(limitY);
+            }
+            imageView.setY(y);
             index++;
             if (index>indexMax){
                 index=0;
+                if (attitude!=0){
+                    attitude=0;
+                }
             }
 
 
@@ -63,6 +74,12 @@ abstract class AnimatedThing {
         return indexMax;
     }
 
+    public void setAttitude(int attitude, int indexMax) {
+        this.attitude = attitude;
+        this.indexMax=indexMax;
+        this.index=0;
+    }
+
     public int getSizeX() {
         return sizeX;
     }
@@ -73,5 +90,9 @@ abstract class AnimatedThing {
 
     public int getOffset() {
         return offset;
+    }
+
+    public void setY(double y) {
+        this.y = y;
     }
 }

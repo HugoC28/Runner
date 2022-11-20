@@ -21,22 +21,8 @@ public class Main extends Application {
                 GameScene playScene = new GameScene(pane, 800, 400,true,gameCam);
                 primaryStage.setScene(playScene);
                 primaryStage.show();
-                AnimationTimer timer = new AnimationTimer() {
-                        int count =0;
-                        @Override
-                        public void handle(long time) {
-                                if (count == playScene.getMe().getDuration()) {
-                                        playScene.getMe().update(time);
-                                        count = 0;
-                                }
-                                gameCam.update(time);
-                                playScene.update(time);
+                playScene.StartGame();
 
-
-                                count++;
-                        }
-                };
-                timer.start();
         }
 
 
