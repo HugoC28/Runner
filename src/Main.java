@@ -1,3 +1,4 @@
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Group;
@@ -17,15 +18,25 @@ public class Main extends Application {
 
                 Camera gameCam = new Camera(100,0);
 
-                GameScene playScene = new GameScene(pane, root, 800, 400,true,gameCam);
-                /*Image spriteSheet = new Image("file:src/img/heros.png");
-                ImageView sprite = new ImageView(spriteSheet);
-                sprite.setViewport(new Rectangle2D(20,0,65,100));
-                sprite.setX(200);
-                sprite.setY(300);
-                root.getChildren().add(sprite);*/
+                GameScene playScene = new GameScene(pane, 800, 400,true,gameCam);
                 primaryStage.setScene(playScene);
                 primaryStage.show();
+                AnimationTimer timer = new AnimationTimer() {
+                        int count =0;
+                        @Override
+                        public void handle(long time) {
+                                if (count == playScene.getMe().getDuration()) {
+                                        playScene.getMe().update(time);
+                                        count = 0;
+                                }
+                                gameCam.update(time);
+                                playScene.update(time);
+
+
+                                count++;
+                        }
+                };
+                timer.start();
         }
 
 

@@ -20,4 +20,6 @@ public class Camera {
         return x+","+y;
     }
 
+    public void update(long time){}
+
 }

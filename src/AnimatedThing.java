@@ -1,3 +1,4 @@
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 
 abstract class AnimatedThing {
@@ -24,6 +25,16 @@ abstract class AnimatedThing {
         this.offset=offset;
         this.sizeX=sizeX;
         this.sizeY=sizeY;
+
+
+    }
+
+    public void update(long time){
+            imageView.setViewport(new Rectangle2D(index*(offset+sizeX),attitude,sizeX,sizeY));
+            index++;
+            if (index>indexMax){
+                index=0;
+            }
 
 
     }
