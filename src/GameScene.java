@@ -12,6 +12,7 @@ import java.util.Random;
 public class GameScene extends Scene {
     public static int jump=159;
     public static int shoot=328;
+    public static int jumpAndShoot=493;
     private Camera gameCam ;
     private StaticThing leftBackground;
     private StaticThing rightBackground;
@@ -79,26 +80,23 @@ public class GameScene extends Scene {
                     }
                 }
                 if (indexRemove!=-1){
-                    //pane.getChildren().remove(enemyList.get(indexRemove).getImageView());
                     enemyList.remove(indexRemove);
                     indexRemove=-1;
                 }
 
                 Random r = new Random();
 
-                if(enemySpawnable && r.nextInt(100)>90){
+                if(enemySpawnable && r.nextInt(100)>0){
                     enemyList.add(new Enemy(pane));
 
                 }
                 gameCam.update(time);
                 update(time);
                 setOnKeyPressed(e ->{
-                    if (e.getCode()== KeyCode.SPACE && me.getAttitude()!=jump){
-                        System.out.println("JUMP");
+                    if (e.getCode()== KeyCode.SPACE && !me.isJumping()){
                         me.Jump();
                     }
                     if (e.getCode()== KeyCode.ENTER && me.getAttitude()!=shoot){
-                        System.out.println("PEW");
                         me.Shoot();
                     }
                 });

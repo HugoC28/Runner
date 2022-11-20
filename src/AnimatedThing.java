@@ -80,7 +80,6 @@ abstract class AnimatedThing {
     public void setAttitude(int attitude, int indexMax) {
         this.attitude = attitude;
         this.indexMax=indexMax;
-        this.index=0;
     }
 
     public int getSizeX() {
@@ -101,5 +100,13 @@ abstract class AnimatedThing {
 
     public void setY(double y) {
         this.y = y;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
+    }
+
+    public void setSizeX(int sizeX){
+        this.sizeX=sizeX;
     }
 }

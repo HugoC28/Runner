@@ -5,9 +5,9 @@ import java.util.Random;
 
 public class Enemy extends AnimatedThing{
     private int min=100;
-    private int max=250;
+    private int max=280;
     public Enemy (Pane pane){
-        super("file:src/img/enemy.png",3,7,150,104,0,pane);
+        super("file:src/img/enemy.png",3,1,150,104,0,pane);
         this.x=800;
         Random r = new Random();
         this.y=r.nextInt((max-min)+1)+min;
@@ -18,11 +18,16 @@ public class Enemy extends AnimatedThing{
         this.limitY=250;
 
     }
-
+    int updateTime = 0;
     @Override
     public void update(long time){
-        super.update(time);
-        x-=15;
+        Random r = new Random();
+        if(updateTime==5) {
+            super.update(time);
+            updateTime=0;
+        }
+        x -= 3;
+        updateTime++;
         this.imageView.setX(x);
     }
 }

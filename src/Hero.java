@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 public class Hero extends AnimatedThing{
     private ArrayList<Bullet> bulletList = new ArrayList<Bullet>();
+    private boolean jumping=false;
     public Hero(int indexMax, int duration, int sizeX, int sizeY, int offset, Pane pane) {
         super("file:src/img/heros.png", indexMax, duration, sizeX, sizeY, offset,pane);
         this.x=50;
@@ -19,17 +20,36 @@ public class Hero extends AnimatedThing{
 
     public void Jump(){
         setAttitude(GameScene.jump, 2);
-        setY(getY()-50);
+        this.jumping=true;
     }
     public void Shoot(){
-        setAttitude(GameScene.shoot, 5);
+        if(jumping) setAttitude(GameScene.jumpAndShoot, 2);
+        else setAttitude(GameScene.shoot, 5);
         Bullet pew = new Bullet(this.pane,this);
         bulletList.add(pew);
     }
-
+    int count=0;
     @Override
     public void update(long time) {
-        super.update(time);
+        if(jumping){
+            if(count<2) {
+                imageView.setViewport(new Rectangle2D(0, attitude, sizeX, sizeY));
+                setY(y - 50);
+
+            }
+            else {
+                setY(y + 50);
+                imageView.setViewport(new Rectangle2D((offset + sizeX), attitude, sizeX, sizeY));
+            }
+            imageView.setY(y);
+            count++;
+            if(count==4){
+                jumping=false;
+                count=0;
+                this.setAttitude(0,5);
+            }
+        }
+        else super.update(time);
         for(Bullet bullet : bulletList){
             bullet.update(time);
             if(bullet.getX()>800){
@@ -37,4 +57,9 @@ public class Hero extends AnimatedThing{
             }
         }
     }
+
+    public boolean isJumping() {
+        return jumping;
+    }
+
 }
