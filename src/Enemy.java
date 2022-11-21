@@ -28,7 +28,7 @@ public class Enemy extends AnimatedThing{
             super.update(time);
             updateTime=0;
         }
-        x -= 8;
+        x -= 7;
         updateTime++;
         this.imageView.setX(x);
     }

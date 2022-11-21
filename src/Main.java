@@ -18,7 +18,6 @@ public class Main extends Application {
                 new Menu(pane,primaryStage,800,400,true);
         }
 
-
         public static void main(String[] args) {
                 launch(args);
         }
