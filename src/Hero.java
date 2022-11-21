@@ -34,11 +34,11 @@ public class Hero extends AnimatedThing{
         if(jumping){
             if(count<3) {
                 imageView.setViewport(new Rectangle2D(0, attitude, sizeX, sizeY));
-                setY(y - 55);
+                setY(y - 60);
 
             }
             else {
-                setY(y + 55);
+                setY(y + 60);
                 imageView.setViewport(new Rectangle2D((offset + sizeX), attitude, sizeX, sizeY));
             }
             imageView.setY(y);

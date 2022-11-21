@@ -37,7 +37,7 @@ public class GameScene extends Scene {
         this.gameCam = new Camera(100,0);
         this.leftBackground = new StaticThing(800,400,"file:src/img/desert.png");
         this.rightBackground = new StaticThing(800,400,"file:src/img/desert.png");
-        this.scoreText=new Text(770,30,String.valueOf(score));
+        this.scoreText=new Text(750,30,String.valueOf(score));
         this.scoreText.setFont(new Font(25));
         this.pane=pane;
         pane.getChildren().add(leftBackground.getImageView());
@@ -49,15 +49,57 @@ public class GameScene extends Scene {
 
 
     }
+    int countMe =0;
+    int count=0;
     public void update(long time){
         leftBackground.getImageView().setX(leftBackground.getImageView().getX()-4);
         rightBackground.getImageView().setX(rightBackground.getImageView().getX()-4);
         if(leftBackground.getImageView().getX()<-800){
             leftBackground.getImageView().setX(leftBackground.getImageView().getX()+800);
             rightBackground.getImageView().setX(rightBackground.getImageView().getX()+800);
-
         }
         this.scoreText.setText(String.valueOf(score));
+
+        if (countMe == me.getDuration()) {
+            me.update(time);
+            countMe = 0;
+        }
+        int maxEnemyX=600;
+        boolean enemySpawnable=enemyList.size()<4;
+        int indexRemove=-1;
+        for(Enemy enemy : enemyList){
+            if (count % enemy.getDuration()==0) {
+                enemy.update(time);
+            }
+            if(enemy.getX()>maxEnemyX){
+                enemySpawnable = false;
+            }
+            if(enemy.getX()<-enemy.getSizeX()){
+                indexRemove=enemyList.indexOf(enemy);
+            }
+            if(me.getImageView().getBoundsInParent().intersects(enemy.getImageView().getBoundsInParent())){
+                System.out.println("DIE");
+            }
+        }
+        if (indexRemove!=-1){
+            enemyList.remove(indexRemove);
+            indexRemove=-1;
+        }
+
+        Random r = new Random();
+
+        if(enemySpawnable && r.nextInt(100)>0){
+            enemyList.add(new Enemy(pane));
+
+        }
+        gameCam.update(time);
+        if(count%10==0){
+            score++;
+        }
+
+        count++;
+        countMe++;
+
     }
 
     public Hero getMe() {
@@ -66,41 +108,11 @@ public class GameScene extends Scene {
 
     public void StartGame(){
         AnimationTimer timer = new AnimationTimer() {
-            int countMe =0;
-            int count=0;
+
             @Override
             public void handle(long time) {
-                if (countMe == me.getDuration()) {
-                    me.update(time);
-                    countMe = 0;
-                }
-                int maxEnemyX=600;
-                boolean enemySpawnable=enemyList.size()<4;
-                int indexRemove=-1;
-                for(Enemy enemy : enemyList){
-                    if (count % enemy.getDuration()==0) {
-                        enemy.update(time);
-                    }
-                    if(enemy.getX()>maxEnemyX){
-                        enemySpawnable = false;
-                    }
-                    if(enemy.getX()<-enemy.getSizeX()){
-                        indexRemove=enemyList.indexOf(enemy);
-                    }
-                }
-                if (indexRemove!=-1){
-                    enemyList.remove(indexRemove);
-                    indexRemove=-1;
-                }
-
-                Random r = new Random();
-
-                if(enemySpawnable && r.nextInt(100)>0){
-                    enemyList.add(new Enemy(pane));
-
-                }
-                gameCam.update(time);
                 update(time);
+
                 setOnKeyPressed(e ->{
                     if (e.getCode()== KeyCode.SPACE && !me.isJumping()){
                         me.Jump();
@@ -109,15 +121,13 @@ public class GameScene extends Scene {
                         me.Shoot();
                     }
                 });
-                if(count%10==0){
-                    score++;
-                }
 
-                count++;
-                countMe++;
 
             }
         };
         timer.start();
     }
+
+
+    public
 }
