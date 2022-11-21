@@ -18,6 +18,7 @@ public class GameScene extends Scene {
     public static int jump=159;
     public static int shoot=328;
     public static int jumpAndShoot=493;
+    public static int enemySpeed=5;
     private Camera gameCam ;
     private StaticThing leftBackground;
     private StaticThing rightBackground;
