@@ -1,9 +1,0 @@
-Run :
-size x = 80
-size y = 100
-offsetX =
-offsetY =
-
-saut : offsetY 159
-
-run jump :

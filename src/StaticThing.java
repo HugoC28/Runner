@@ -2,8 +2,8 @@ import javafx.scene.image.ImageView;
 
 public class StaticThing {
 
-    private double sizeX;
-    private double sizeY;
+    private double X;
+    private double Y;
 
     ImageView imageView;
 
@@ -11,9 +11,10 @@ public class StaticThing {
         return imageView;
     }
 
-    public StaticThing(double sizeX, double sizeY, String fileName) {
-        this.sizeX = sizeX;
-        this.sizeY = sizeY;
+    public StaticThing(double X, double Y, String fileName) {
+        this.X = X;
+        this.Y = Y;
         this.imageView=new ImageView(fileName);
+
     }
 }

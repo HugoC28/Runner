@@ -7,6 +7,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -23,23 +25,17 @@ public class GameScene extends Scene {
     private Hero me;
     private ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
     private Pane pane;
+    private Stage primaryStage;
 
-    AnimationTimer timer = new AnimationTimer() {
-        @Override
-        public void handle(long time) {
-            me.update(time/1000);
-            gameCam.update(time/1000);
-        }
-    };
-
-    public GameScene(Pane pane, double v, double v1, boolean b) {
+    public GameScene(Pane pane, Stage primaryStage, double v, double v1, boolean b) {
         super(pane, v, v1, b);
         this.gameCam = new Camera(100,0);
-        this.leftBackground = new StaticThing(800,400,"file:src/img/desert.png");
-        this.rightBackground = new StaticThing(800,400,"file:src/img/desert.png");
+        this.leftBackground = new StaticThing(0,0,"file:src/img/desert.png");
+        this.rightBackground = new StaticThing(0,0,"file:src/img/desert.png");
         this.scoreText=new Text(750,30,String.valueOf(score));
         this.scoreText.setFont(new Font(25));
         this.pane=pane;
+        this.primaryStage=primaryStage;
         pane.getChildren().add(leftBackground.getImageView());
         pane.getChildren().add(rightBackground.getImageView());
         pane.getChildren().add(scoreText);
@@ -78,7 +74,7 @@ public class GameScene extends Scene {
                 indexRemove=enemyList.indexOf(enemy);
             }
             if(me.getImageView().getBoundsInParent().intersects(enemy.getImageView().getBoundsInParent())){
-                System.out.println("DIE");
+                stop();
             }
         }
         if (indexRemove!=-1){
@@ -105,9 +101,9 @@ public class GameScene extends Scene {
     public Hero getMe() {
         return me;
     }
-
-    public void StartGame(){
-        AnimationTimer timer = new AnimationTimer() {
+    AnimationTimer timer;
+    public void startGame(){
+        timer = new AnimationTimer() {
 
             @Override
             public void handle(long time) {
@@ -129,5 +125,20 @@ public class GameScene extends Scene {
     }
 
 
-    public
+    public void stop(){
+        Group gameRoot = new Group();
+        Pane gamePane = new Pane(gameRoot);
+        Menu menuScene = new Menu(gamePane,primaryStage,800,400,true);
+        Text txt1=new Text(250,100,"GAME OVER ");
+        Text txt2=new Text(275,340,"Score : "+String.valueOf(score));
+        txt1.setFont(new Font(50));
+        txt1.setTextAlignment(TextAlignment.CENTER);
+        txt2.setTextAlignment(TextAlignment.CENTER);
+
+        txt2.setFont(new Font(50));
+        gamePane.getChildren().add(txt1);
+        gamePane.getChildren().add(txt2);
+        timer.stop();
+        primaryStage.setScene(menuScene);
+    }
 }
