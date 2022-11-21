@@ -62,4 +62,11 @@ public class Hero extends AnimatedThing{
         return jumping;
     }
 
+    public void setBulletList(ArrayList<Bullet> bulletList) {
+        this.bulletList = bulletList;
+    }
+
+    public ArrayList<Bullet> getBulletList() {
+        return bulletList;
+    }
 }

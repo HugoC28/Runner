@@ -11,6 +11,7 @@ import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 public class GameScene extends Scene {
@@ -32,7 +33,7 @@ public class GameScene extends Scene {
         this.gameCam = new Camera(100,0);
         this.leftBackground = new StaticThing(0,0,"file:src/img/desert.png");
         this.rightBackground = new StaticThing(0,0,"file:src/img/desert.png");
-        this.scoreText=new Text(750,30,String.valueOf(score));
+        this.scoreText=new Text(745,30,String.valueOf(score));
         this.scoreText.setFont(new Font(25));
         this.pane=pane;
         this.primaryStage=primaryStage;
@@ -76,8 +77,25 @@ public class GameScene extends Scene {
             if(me.getImageView().getBoundsInParent().intersects(enemy.getImageView().getBoundsInParent())){
                 stop();
             }
+            int indexBulletRemove=-1;
+            for(Bullet bullet : me.getBulletList()){
+                if (bullet.getImageView().getBoundsInParent().intersects(enemy.getImageView().getBoundsInParent())){
+                    pane.getChildren().remove(enemy.getImageView());
+                    indexRemove=enemyList.indexOf(enemy);
+                    indexBulletRemove=me.getBulletList().indexOf(bullet);
+                    score+=10;
+                }
+            }
+            if(indexBulletRemove!=-1){
+                pane.getChildren().remove(me.getBulletList().get(indexBulletRemove).getImageView());
+                me.getBulletList().remove(indexBulletRemove);
+                me.setBulletList(me.getBulletList());
+                indexBulletRemove=-1;
+            }
+
         }
         if (indexRemove!=-1){
+            pane.getChildren().remove(enemyList.get(indexRemove).getImageView());
             enemyList.remove(indexRemove);
             indexRemove=-1;
         }
@@ -98,9 +116,6 @@ public class GameScene extends Scene {
 
     }
 
-    public Hero getMe() {
-        return me;
-    }
     AnimationTimer timer;
     public void startGame(){
         timer = new AnimationTimer() {

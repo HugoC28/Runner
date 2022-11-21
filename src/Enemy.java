@@ -14,6 +14,8 @@ public class Enemy extends AnimatedThing{
         this.getImageView().setViewport(new Rectangle2D(0,0,this.getSizeX(),this.getSizeY()));
         this.getImageView().setX(x);
         this.getImageView().setY(y);
+        this.getImageView().setScaleX(0.8);
+        this.getImageView().setScaleY(0.8);
         this.gravity=0;
         this.limitY=250;
 
