@@ -5,6 +5,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -16,6 +18,8 @@ public class GameScene extends Scene {
     private Camera gameCam ;
     private StaticThing leftBackground;
     private StaticThing rightBackground;
+    private int score=0;
+    private Text scoreText;
     private Hero me;
     private ArrayList<Enemy> enemyList = new ArrayList<Enemy>();
     private Pane pane;
@@ -33,9 +37,12 @@ public class GameScene extends Scene {
         this.gameCam = new Camera(100,0);
         this.leftBackground = new StaticThing(800,400,"file:src/img/desert.png");
         this.rightBackground = new StaticThing(800,400,"file:src/img/desert.png");
+        this.scoreText=new Text(770,30,String.valueOf(score));
+        this.scoreText.setFont(new Font(25));
         this.pane=pane;
         pane.getChildren().add(leftBackground.getImageView());
         pane.getChildren().add(rightBackground.getImageView());
+        pane.getChildren().add(scoreText);
         leftBackground.getImageView().setX(-300);
         rightBackground.getImageView().setX(leftBackground.getImageView().getX()+800);
         this.me = new Hero(5,9,80,100,5,pane);
@@ -48,7 +55,9 @@ public class GameScene extends Scene {
         if(leftBackground.getImageView().getX()<-800){
             leftBackground.getImageView().setX(leftBackground.getImageView().getX()+800);
             rightBackground.getImageView().setX(rightBackground.getImageView().getX()+800);
+
         }
+        this.scoreText.setText(String.valueOf(score));
     }
 
     public Hero getMe() {
@@ -58,7 +67,7 @@ public class GameScene extends Scene {
     public void StartGame(){
         AnimationTimer timer = new AnimationTimer() {
             int countMe =0;
-            int countEnemy=0;
+            int count=0;
             @Override
             public void handle(long time) {
                 if (countMe == me.getDuration()) {
@@ -69,7 +78,7 @@ public class GameScene extends Scene {
                 boolean enemySpawnable=enemyList.size()<4;
                 int indexRemove=-1;
                 for(Enemy enemy : enemyList){
-                    if (countEnemy % enemy.getDuration()==0) {
+                    if (count % enemy.getDuration()==0) {
                         enemy.update(time);
                     }
                     if(enemy.getX()>maxEnemyX){
@@ -100,10 +109,13 @@ public class GameScene extends Scene {
                         me.Shoot();
                     }
                 });
+                if(count%10==0){
+                    score++;
+                }
 
-
-                countEnemy++;
+                count++;
                 countMe++;
+
             }
         };
         timer.start();

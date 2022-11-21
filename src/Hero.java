@@ -32,18 +32,18 @@ public class Hero extends AnimatedThing{
     @Override
     public void update(long time) {
         if(jumping){
-            if(count<2) {
+            if(count<3) {
                 imageView.setViewport(new Rectangle2D(0, attitude, sizeX, sizeY));
-                setY(y - 50);
+                setY(y - 55);
 
             }
             else {
-                setY(y + 50);
+                setY(y + 55);
                 imageView.setViewport(new Rectangle2D((offset + sizeX), attitude, sizeX, sizeY));
             }
             imageView.setY(y);
             count++;
-            if(count==4){
+            if(count==6){
                 jumping=false;
                 count=0;
                 this.setAttitude(0,5);
