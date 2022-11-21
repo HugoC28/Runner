@@ -16,8 +16,6 @@ public class Main extends Application {
                 Group root = new Group();
                 Pane pane = new Pane(root);
                 Menu menuScene = new Menu(pane,primaryStage,800,400,true);
-                primaryStage.setScene(menuScene);
-                primaryStage.show();
 
         }
 

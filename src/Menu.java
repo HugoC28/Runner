@@ -26,6 +26,8 @@ public class Menu extends Scene {
         playButton.getImageView().addEventHandler(javafx.scene.input.MouseEvent.MOUSE_CLICKED, event -> {
             start();
         });
+        primaryStage.setScene(this);
+        primaryStage.show();
 
     }
 
