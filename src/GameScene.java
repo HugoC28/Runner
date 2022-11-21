@@ -31,8 +31,8 @@ public class GameScene extends Scene {
     public GameScene(Pane pane, Stage primaryStage, double v, double v1, boolean b) {
         super(pane, v, v1, b);
         this.gameCam = new Camera(100,0);
-        this.leftBackground = new StaticThing(0,0,"file:src/img/desert.png");
-        this.rightBackground = new StaticThing(0,0,"file:src/img/desert.png");
+        this.leftBackground = new StaticThing(0,0,"file:img/desert.png");
+        this.rightBackground = new StaticThing(0,0,"file:img/desert.png");
         this.scoreText=new Text(745,30,String.valueOf(score));
         this.scoreText.setFont(new Font(25));
         this.pane=pane;

@@ -7,7 +7,7 @@ public class Enemy extends AnimatedThing{
     private int min=100;
     private int max=280;
     public Enemy (Pane pane){
-        super("file:src/img/enemy.png",3,1,150,104,0,pane);
+        super("file:img/enemy.png",3,1,150,104,0,pane);
         this.x=800;
         Random r = new Random();
         this.y=r.nextInt((max-min)+1)+min;

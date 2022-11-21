@@ -14,10 +14,12 @@ public class Menu extends Scene {
 
     public Menu(Pane pane, Stage primaryStage, double v, double v1, boolean b) {
         super(pane, v, v1, b);
-        this.background = new StaticThing(800,400,"file:src/img/desert.png");
+        this.background = new StaticThing(800,400,"file:img/desert.png");
         this.pane=pane;
-        this.playButton = new StaticThing(40,40,"file:src/img/startbutton.png");
+        this.playButton = new StaticThing(40,40,"file:img/startbutton.png");
         this.primaryStage=primaryStage;
+        primaryStage.setScene(this);
+        primaryStage.show();
         playButton.getImageView().setX(-250);
         playButton.getImageView().setScaleX(0.3);
         playButton.getImageView().setScaleY(0.3);

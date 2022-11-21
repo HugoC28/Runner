@@ -4,7 +4,7 @@ import javafx.scene.layout.Pane;
 public class Bullet extends AnimatedThing{
 
     public Bullet(Pane pane,Hero me){
-        super("file:src/img/heros.png",1,30,61,50,0,pane);
+        super("file:img/heros.png",1,30,61,50,0,pane);
         this.setAttitude(360,1);
         this.x=me.getX()+80;
         this.y=me.getY()+20;

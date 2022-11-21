@@ -7,7 +7,7 @@ public class Hero extends AnimatedThing{
     private ArrayList<Bullet> bulletList = new ArrayList<Bullet>();
     private boolean jumping=false;
     public Hero(int indexMax, int duration, int sizeX, int sizeY, int offset, Pane pane) {
-        super("file:src/img/heros.png", indexMax, duration, sizeX, sizeY, offset,pane);
+        super("file:img/heros.png", indexMax, duration, sizeX, sizeY, offset,pane);
         this.x=50;
         this.y=250;
         this.getImageView().setViewport(new Rectangle2D(this.getIndex()*this.getSizeX(),this.getAttitude(),this.getSizeX(),this.getSizeY()));
